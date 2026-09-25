@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Support Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">S</div>
+
+            <div>
+                <h2>StudentHub</h2>
+                <span>Support Center</span>
+            </div>
+        </div>
+
+        <nav>
+
+            <a href="#" class="nav-item active">
+                <span>▣</span>
+                Dashboard
+            </a>
+
+            <a href="#tickets" class="nav-item">
+                <span>▤</span>
+                Tickets
+            </a>
+
+            <a href="#create" class="nav-item">
+                <span>＋</span>
+                Create Ticket
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="help-box">
+                <strong>Need Help?</strong>
+                <p>Our support team is here to assist you.</p>
+                <button onclick="document.getElementById('create').scrollIntoView()">
+                    Create Ticket
+                </button>
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- Main Content -->
+
+    <main class="main-content">
+
+        <!-- Top Header -->
+
+        <header class="topbar">
+
+            <div>
+                <h1>Dashboard</h1>
+                <p>Manage student support requests efficiently.</p>
+            </div>
+
+            <div class="profile">
+
+                <div class="profile-avatar">
+                    S
+                </div>
+
+                <div class="profile-info">
+                    <strong>Support Admin</strong>
+                    <span>Administrator</span>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- Statistics -->
+
+        <section class="stats">
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+                    🎫
+                </div>
+
+                <div>
+                    <span>Total Tickets</span>
+                    <h2 id="totalTickets">0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon orange">
+                    ⏳
+                </div>
+
+                <div>
+                    <span>Open</span>
+                    <h2 id="openTickets">0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon purple">
+                    ⚙
+                </div>
+
+                <div>
+                    <span>In Progress</span>
+                    <h2 id="progressTickets">0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+                    ✓
+                </div>
+
+                <div>
+                    <span>Resolved</span>
+                    <h2 id="resolvedTickets">0</h2>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Create Ticket -->
+
+        <section class="content-card create-section" id="create">
+
+            <div class="section-title">
+
+                <div>
+                    <h2>Create New Ticket</h2>
+                    <p>Submit a new student support request.</p>
+                </div>
+
+            </div>
+
+
+            <form id="ticketForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>Student Name</label>
+
+                        <input
+                            type="text"
+                            id="student_name"
+                            placeholder="Enter student name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Category</label>
+
+                        <input
+                            type="text"
+                            id="category"
+                            placeholder="e.g. Technical, Academic"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group full-width">
+
+                        <label>Subject</label>
+
+                        <input
+                            type="text"
+                            id="subject"
+                            placeholder="Enter ticket subject"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group full-width">
+
+                        <label>Description</label>
+
+                        <textarea
+                            id="description"
+                            placeholder="Describe the issue in detail..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Priority</label>
+
+                        <select id="priority">
+
+                            <option value="Low">
+                                Low
+                            </option>
+
+                            <option value="Medium" selected>
+                                Medium
+                            </option>
+
+                            <option value="High">
+                                High
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-actions">
+
+                    <button type="reset" class="secondary-btn">
+                        Clear
+                    </button>
+
+                    <button type="submit" class="primary-btn">
+                        Create Ticket
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- Tickets -->
+
+        <section class="content-card tickets-section" id="tickets">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Support Tickets</h2>
+                    <p>View and manage all student support requests.</p>
+                </div>
+
+                <button
+                    class="refresh-btn"
+                    onclick="loadTickets()"
+                >
+                    ↻ Refresh
+                </button>
+
+            </div>
+
+
+            <!-- Search -->
+
+            <div class="ticket-tools">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search tickets..."
+                >
+
+                <select id="statusFilter">
+
+                    <option value="all">
+                        All Status
+                    </option>
+
+                    <option value="Open">
+                        Open
+                    </option>
+
+                    <option value="In Progress">
+                        In Progress
+                    </option>
+
+                    <option value="Resolved">
+                        Resolved
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div id="ticketsContainer">
+
+                <div class="loading">
+                    Loading tickets...
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Footer -->
+
+        <footer>
+
+            <p>
+                StudentHub Support Center
+                <span>•</span>
+                Student Support & Ticket Management System
+            </p>
+
+        </footer>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
